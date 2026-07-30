@@ -57,17 +57,19 @@ if (process.env.NODE_ENV === "development") {
 	setMaxListeners(20);
 }
 
-const adapter = process.env.CF_WORKERS
-	? cloudflare({
-			prerenderEnvironment: "node",
-		})
-	: undefined;
+// const adapter = process.env.CF_WORKERS
+// 	? cloudflare({
+// 			prerenderEnvironment: "node",
+// 		})
+// 	: undefined;
+const adapter = undefined;
+
 
 // https://astro.build/config
 export default defineConfig({
-	site: siteConfig.site_url,
+	site: "https://mengxingdemeng.github.io/astro-blog/",
+	base: "/astro-blog/",
 
-	base: "/",
 	trailingSlash: "always",
 
 	// 字体配置 - 只加载实际使用的字体，跳过未引用的以加快构建
