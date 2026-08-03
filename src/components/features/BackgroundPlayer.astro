@@ -8,9 +8,15 @@ export interface Props {
 	playerMode?: "order" | "random";
 }
 
-const { playerUrl, playerMode = "order" } = Astro.props;
+// const { playerUrl, playerMode = "order" } = Astro.props;
 
-const urls = Array.isArray(playerUrl) ? playerUrl : [playerUrl];
+// const urls = Array.isArray(playerUrl) ? playerUrl : [playerUrl];
+const { playerUrl, playerMode = "order" } = Astro.props;
+// 获取部署基础路径
+const baseUrl = import.meta.env.BASE_URL;
+// 统一转为数组，并且拼接前缀
+const rawUrls = Array.isArray(playerUrl) ? playerUrl : [playerUrl];
+const urls = rawUrls.map(path => `${baseUrl}${path}`);
 const hasMultiple = urls.length > 1;
 const urlsJson = JSON.stringify(urls);
 
