@@ -416,4 +416,12 @@ export const zh_CN: Translation = {
 	[Key.videoPrev]: "上一个视频",
 	[Key.videoNext]: "下一个视频",
 	[Key.videoLoadError]: "视频加载失败",
+
+	// 纪念日
+	[Key.anniversaryTitle]: "💕 恋爱纪念",
+	[Key.anniversaryDays]: "我们已经相恋 {days} 天",
+	[Key.anniversarySince]: "起始日期：{date}",
+	[Key.anniversaryNext]: "距离下一个周年纪念日还有 {days} 天",
+	[Key.anniversaryDayUnit]: "天",
+
 };

@@ -1,0 +1,84 @@
+---
+// src/components/Anniversary/AnniversaryCard.astro
+
+// 1. 接收外部传入的参数：相恋的起始日期
+interface Props {
+  startDate: string; // 格式如 "2022-05-20"
+}
+
+const { startDate } = Astro.props;
+
+// 2. 引入国际化方法 (根据你项目的实际路径调整)
+import { zh_CN } from "../../i18n/zh_CN"; 
+import Key from "../../i18nKey";
+
+// 3. 计算纪念日的核心逻辑 (纯 JS，运行在构建时)
+const start = new Date(startDate);
+const now = new Date();
+
+// 计算相差的毫秒数，然后转换为天数
+const diffTime = Math.abs(now.getTime() - start.getTime());
+const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+// 计算下一个周年纪念日
+const nextAnniversary = new Date(start);
+nextAnniversary.setFullYear(now.getFullYear());
+if (nextAnniversary < now) {
+  nextAnniversary.setFullYear(now.getFullYear() + 1);
+}
+const daysToNextAnniversary = Math.ceil(
+  (nextAnniversary.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)
+);
+
+// 替换国际化文案中的占位符 {days} 和 {date}
+const daysText = zh_CN[Key.anniversaryDays].replace("{days}", String(diffDays));
+const nextText = zh_CN[Key.anniversaryNext].replace("{days}", String(daysToNextAnniversary));
+const sinceText = zh_CN[Key.anniversarySince].replace("{date}", startDate);
+---
+
+<!-- 下面是 HTML 结构 -->
+<div class="anniversary-card">
+  <h3 class="anniversary-title">{zh_CN[Key.anniversaryTitle]}</h3>
+  
+  <div class="anniversary-content">
+    <p class="days-count">
+      <span class="number">{diffDays}</span>
+      <span class="unit">{zh_CN[Key.anniversaryDayUnit]}</span>
+    </p>
+    <p class="desc">{daysText}</p>
+    <p class="since">{sinceText}</p>
+    <p class="next">{nextText}</p>
+  </div>
+</div>
+
+<!-- 下面是专属样式，只对当前组件生效 -->
+<style>
+  .anniversary-card {
+    background: linear-gradient(135deg, #fff1eb 0%, #ace0f9 100%); /* 浪漫渐变 */
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+  .anniversary-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #ff6b6b;
+  }
+  .number {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #ff4757;
+    line-height: 1;
+  }
+  .unit {
+    font-size: 1.2rem;
+    color: #666;
+    margin-left: 4px;
+  }
+  .desc, .since, .next {
+    margin-top: 1rem;
+    color: #555;
+    font-size: 1rem;
+  }
+</style>

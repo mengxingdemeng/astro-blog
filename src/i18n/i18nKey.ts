@@ -414,6 +414,13 @@ enum I18nKey {
 	videoPrev = "videoPrev",
 	videoNext = "videoNext",
 	videoLoadError = "videoLoadError",
+
+	//纪念日组件
+	anniversaryTitle = "anniversaryTitle",
+  	anniversaryDays = "anniversaryDays",
+  	anniversarySince = "anniversarySince",
+  	anniversaryNext = "anniversaryNext",
+  	anniversaryDayUnit = "anniversaryDayUnit",
 }
 
 export default I18nKey;
